@@ -1,0 +1,71 @@
+% Facts about the players
+player(babar_azam).
+ player(shaheen_afridi).
+player(fakhar_zaman).
+player(imad_wasim).
+player(shadab_khan).
+player(hasan_ali).
+player(sarfaraz_ahmed).
+player(mohammad_amir).
+player(faheem_ashraf).
+player(mohammad_hasnain).
+
+% Facts about player skills
+batsman(babar_azam).
+batsman(fakhar_zaman).
+bowler(shaheen_afridi).
+bowler(imad_wasim).
+bowler(shadab_khan).
+bowler(hasan_ali).
+bowler(mohammad_amir).
+bowler(faheem_ashraf).
+bowler(mohammad_hasnain).
+
+% Facts about player prices
+price(babar_azam, 5000000).
+price(shaheen_afridi, 4000000).
+price(fakhar_zaman, 3000000).
+price(imad_wasim, 3000000).
+price(shadab_khan, 3000000).
+price(hasan_ali, 3000000).
+price(sarfaraz_ahmed, 2000000).
+price(mohammad_amir, 2000000).
+price(faheem_ashraf, 2000000).
+price(mohammad_hasnain, 2000000).
+
+% Facts about player nationalities
+nationality(babar_azam, pakistan).
+nationality(shaheen_afridi, pakistan).
+nationality(fakhar_zaman, pakistan).
+nationality(imad_wasim, pakistan).
+nationality(shadab_khan, pakistan).
+nationality(hasan_ali, pakistan).
+nationality(sarfaraz_ahmed, pakistan).
+nationality(mohammad_amir, pakistan).
+nationality(faheem_ashraf, pakistan).
+nationality(mohammad_hasnain, pakistan).
+
+% Rules for selecting a player
+select_player(Player) :- write('Selected player: '), write(Player),read(Player).
+
+% Rules for selecting a batsman
+select_batsman(Batsman) :-
+    player(Batsman),
+    batsman(Batsman),
+    write('Selected batsman: '), write(Batsman).
+
+% Rules for selecting a bowler
+select_bowler(Bowler) :-
+    player(Bowler),
+    bowler(Bowler),
+    write('Selected bowler: '), write(Bowler).
+
+% Rules for selecting a player within budget
+select_player_within_budget(Player, Budget) :-
+    player(Player),
+    price(Player, Price),
+    Price =< Budget,
+    write('Selected player within budget: '), write(Player).
+
+% Rules for selecting a Pakistani player
+select_pakistani_player(Player).

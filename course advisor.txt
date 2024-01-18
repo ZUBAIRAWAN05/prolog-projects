@@ -1,0 +1,49 @@
+% Facts about courses
+course(cs101, 'Introduction to Computer Science', 'Computer Science', 4).
+course(cs102, 'Programming Fundamentals', 'Computer Science', 4).
+course(cs103, 'Data Structures', 'Computer Science', 4).
+course(cs104, 'Algorithms', 'Computer Science', 4).
+course(cs105, 'Computer Organization', 'Computer Science', 4).
+course(ee101, 'Circuits and Electronics', 'Electrical Engineering', 4).
+course(ee102, 'Digital Systems', 'Electrical Engineering', 4).
+course(ee103, 'Signals and Systems', 'Electrical Engineering', 4).
+course(ee104, 'Electromagnetics', 'Electrical Engineering', 4).
+course(ee105, 'Control Systems', 'Electrical Engineering', 4).
+
+% Prerequisites for courses
+prereq(cs102, cs101).
+prereq(cs103, cs102).
+prereq(cs104, cs103).
+prereq(cs105, cs104).
+prereq(ee101, cs101).
+prereq(ee102, ee101).
+prereq(ee103, ee102).
+prereq(ee104, ee103).
+prereq(ee105, ee104).
+
+% Rule to recommend computer science courses for users interested in computer science
+recommend_courses(Courses) :-
+    write('Are you interested in computer science? '),
+    read(Interest),
+    (Interest = 'Yes' -> findall(Course, course(Course, _, 'Computer Science', _), Courses);
+     Interest = 'No' -> write('I am sorry, but I cannot recommend any computer science courses for you.')).
+
+% Rule to recommend electrical engineering courses for users interested in electrical engineering
+recommend_courses(Courses) :-
+    write('Are you interested in electrical engineering? '),
+    read(Interest),
+    (Interest = 'Yes' -> findall(Course, course(Course, _, 'Electrical Engineering', _), Courses);
+     Interest = 'No' -> write('I am sorry, but I cannot recommend any electrical engineering courses for you.')).
+
+% Rule to filter out courses that have not been completed
+recommend_courses(Courses) :-
+    write('Have you completed all the prerequisites for the courses you are interested in? '),
+    read(Prereqs),
+    (Prereqs = 'Yes' -> Courses = Courses;
+     Prereqs = 'No' -> filter_courses(Courses, FilteredCourses), Courses = FilteredCourses).
+
+% Helper predicate to filter out courses that have not been completed
+filter_courses([], []).
+filter_courses([Course|Tail], FilteredCourses) :-
+    (completed(Course) -> FilteredCourses = [Course|FilteredCourses2], filter_courses(Tail, FilteredCourses2);
+     Filtered

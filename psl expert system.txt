@@ -1,0 +1,69 @@
+% Facts about the teams
+team(india).
+team(australia).
+team(england).
+team(south_africa).
+
+% Facts about the players
+player(virat_kohli).
+player(rohit_sharma).
+player(steve_smith).
+player(david_warner).
+player(joe_root).
+player(ben_stokes).
+
+% Facts about player performance
+performed_well(virat_kohli).
+performed_well(rohit_sharma).
+performed_poorly(steve_smith).
+performed_poorly(david_warner).
+
+% Facts about player statistics
+has_high_average(virat_kohli).
+has_high_average(rohit_sharma).
+has_low_average(steve_smith).
+has_low_average(david_warner).
+
+% Rules for selecting a team
+select_team(Team) :-
+    team(Team),
+    write('Selected team: '), write(Team).
+
+% Rules for selecting a captain
+select_captain(Captain) :-
+    player(Captain),
+    performed_well(Captain),
+    write('Selected captain: '), write(Captain).
+
+select_captain(Captain) :-
+    player(Captain),
+    has_high_average(Captain),
+    \+ performed_well(Captain),
+    write('Selected captain: '), write(Captain).
+
+% Rules for selecting a vice-captain
+select_vice_captain(ViceCaptain) :-
+    player(ViceCaptain),
+    performed_well(ViceCaptain),
+    \+ performed_well(Captain),
+    write('Selected vice-captain: '), write(ViceCaptain).
+
+select_vice_captain(ViceCaptain) :-
+    player(ViceCaptain),
+    has_high_average(ViceCaptain),
+    \+ performed_well(ViceCaptain),
+    \+ performed_well(Captain),
+    write('Selected vice-captain: '), write(ViceCaptain).
+
+% Rules for selecting a playing 11
+select_playing_11(Players) :-
+    Players = [P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11],
+    player(P1), player(P2), player(P3), player(P4), player(P5),
+    player(P6), player(P7), player(P8), player(P9), player(P10), player(P11),
+    write('Selected playing 11: '), write(Players).
+
+% Example queries
+?- select_team(Team).
+?- select_captain(Captain).
+?- select_vice_captain(ViceCaptain).
+?- select_playing_11(Players).

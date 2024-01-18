@@ -1,0 +1,34 @@
+% Facts about mobile phones
+phone(iphone, 'Apple', 'iOS', 'High-end', 'Professional').
+phone(galaxy, 'Samsung', 'Android', 'High-end', 'Power user').
+phone(google_pixel, 'Google', 'Android', 'Mid-range', 'Technophile').
+phone(oneplus, 'OnePlus', 'Android', 'Mid-range', 'Budget-conscious power user').
+phone(moto_g, 'Motorola', 'Android', 'Budget', 'Casual user').
+
+% Rule to recommend a phone for professional users
+recommend_phone(Phone) :-
+    phone(Phone, _, _, 'High-end', 'Professional').
+
+% Rule to recommend a phone for power users
+recommend_phone(Phone) :-
+    phone(Phone, _, _, 'High-end', 'Power user').
+
+% Rule to recommend a phone for technophiles
+recommend_phone(Phone) :-
+    phone(Phone, _, _, 'Mid-range', 'Technophile').
+
+% Rule to recommend a phone for budget-conscious power users
+recommend_phone(Phone) :-
+    phone(Phone, _, _, 'Mid-range', 'Budget-conscious power user').
+
+% Rule to recommend a phone for casual users
+recommend_phone(Phone) :-
+    phone(Phone, _, _, 'Budget', 'Casual user').
+
+% Main predicate to recommend a phone based on user's personality
+recommend_phone :-
+    write('Are you a professional user or a power user? '),
+    read(Personality),
+    (Personality = 'Professional' -> recommend_phone(Phone), write('Based on your personality, I recommend the '), write(Phone), write('.');
+     Personality = 'Power user' -> recommend_phone(Phone), write('Based on your personality, I recommend the '), write(Phone), write('.');
+     write('I am sorry, but I am unable to recommend a phone based on your personality.')).

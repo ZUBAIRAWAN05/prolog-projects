@@ -1,0 +1,31 @@
+% Facts
+restaurant(name, "The Hungry Bear").
+restaurant(location, "New York City").
+restaurant(cuisine, "American").
+restaurant(price_range, "Moderate").
+
+menu(item, "Burgers").
+menu(item, "Fries").
+menu(item, "Pizza").
+menu(item, "Salads").
+
+employee(name, "John Smith").
+employee(position, "Manager").
+employee(years_of_experience, 10).
+
+employee(name, "Samantha Williams").
+employee(position, "Server").
+employee(years_of_experience, 5).
+
+employee(name, "James Johnson").
+employee(position, "Cook").
+employee(years_of_experience, 7).
+
+% Rules
+is_experienced(Employee) :- employee(years_of_experience, Experience), Experience >= 5.
+
+has_high_rating(Restaurant) :- restaurant(rating, Rating), Rating >= 4.0.
+
+should_promote(Employee) :- employee(position, Position), Position \= "Manager", is_experienced(Employee).
+
+should_expand(Restaurant) :- restaurant(location, Location), Location = "New York City", has_high_rating(Restaurant).
